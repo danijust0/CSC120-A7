@@ -46,7 +46,7 @@ public class Library extends Building  {
 public void addTitle(){
     this.collection.put("UNKNOWN by UNKNOWN", true);
   }
-  
+
 /**
  * Removes books from library collection hashtable
  * @param title
@@ -111,6 +111,7 @@ public void addTitle(){
 
 /**
  * Print's titles in library collection. Option to print with book availabilities.
+ * @param with_status
  */
   public void printCollection(boolean with_status){
     if (with_status){
@@ -137,20 +138,21 @@ public void addTitle(){
     if (floorNum < 1 || floorNum > this.nFloors) {
         throw new RuntimeException("Invalid floor number. Valid range for this Building is 1-" + this.nFloors +".");
     }
-    if (floorNum > this.activeFloor++ || floorNum < this.activeFloor--){
-      throw new RuntimeException("This library does not have an elevator, you can only travel to adjecent floors.");
+    if(this.hasElevator == false){
+      if (floorNum > this.activeFloor++ || floorNum < this.activeFloor--){
+        throw new RuntimeException("This house does not have an elevator, you can only travel to adjecent floors."); 
+      }
     } else {
-    System.out.println("You are now on floor #" + floorNum + " of " + this.name);
-    this.activeFloor = floorNum;
+      System.out.println("You are now on floor #" + floorNum + " of " + this.name);
+      this.activeFloor = floorNum;
     }
   }
 
 
   public static void main(String[] args) {
     Library myLib = new Library("libby","adress",5,true);
-    myLib.addTitle("Book by Author");
-    myLib.addTitle("Another Book by Another Author");
-    myLib.printCollection();
+    myLib.enter();
+    myLib.goToFloor(3);
 
   }
   

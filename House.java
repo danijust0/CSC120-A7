@@ -125,10 +125,11 @@ public class House extends Building {
     if (floorNum < 1 || floorNum > this.nFloors) {
         throw new RuntimeException("Invalid floor number. Valid range for this Building is 1-" + this.nFloors +".");
     }
-    if (floorNum > this.activeFloor++ || floorNum < this.activeFloor--){
-      throw new RuntimeException("This house does not have an elevator, you can only travel to adjecent floors."); 
-    }
-    else {
+    if(this.hasElevator == false){
+      if (floorNum > this.activeFloor++ || floorNum < this.activeFloor--){
+        throw new RuntimeException("This house does not have an elevator, you can only travel to adjecent floors."); 
+      }
+    } else {
       System.out.println("You are now on floor #" + floorNum + " of " + this.name);
       this.activeFloor = floorNum;
     }
